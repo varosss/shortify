@@ -21,7 +21,7 @@ func NewRouter(
 
 	authGroup := r.Group("/auth")
 
-	authGroup.POST("/sign-up", authHandler.SignUp)
+	authGroup.POST("/register", authHandler.Register)
 	authGroup.POST("/login", authHandler.Login)
 
 	api := r.Group("/api", auth.AuthMiddleware(jwtManager))
