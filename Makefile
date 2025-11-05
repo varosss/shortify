@@ -1,0 +1,27 @@
+include .env
+export $(shell sed 's/=.*//' .env)
+
+REGISTRY := vaross/private-projects
+BUILD_DATE := $(shell date +%Y_%m_%d_%H_%M_%S)
+
+build.dev:
+	@docker build --no-cache \
+	-f docker/golang/Dockerfile.dev . \
+	-t ${REGISTRY}:shortify-dev
+
+build.prod:
+	@docker build --no-cache \
+	-f docker/golang/Dockerfile.prod . \
+	-t ${REGISTRY}:${BUILD_DATE}_shortify-prod
+
+# ==============
+# DATABASE MIGRATIONS
+# ==============
+migrate-up:
+	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRESQL_URL)" up
+
+migrate-down:
+	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRESQL_URL)" down
+
+migrate-create:
+	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate create -ext sql -dir "$(MIGRATIONS_PATH)" $(name)
