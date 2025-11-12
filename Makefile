@@ -17,11 +17,11 @@ build.prod:
 # ==============
 # DATABASE MIGRATIONS
 # ==============
-migrate-up:
-	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRESQL_URL)" up
+docker-migrate-up:
+	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRES_URL)" up
 
-migrate-down:
-	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRESQL_URL)" down
+docker-migrate-down:
+	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate -path "$(MIGRATIONS_PATH)" -database "$(POSTGRES_URL)" down
 
 migrate-create:
-	MSYS_NO_PATHCONV=1 docker compose exec shortify-backend migrate create -ext sql -dir "$(MIGRATIONS_PATH)" $(name)
+	MSYS_NO_PATHCONV=1 migrate create -ext sql -dir "$(MIGRATIONS_PATH)" $(name)
