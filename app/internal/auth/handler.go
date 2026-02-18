@@ -15,7 +15,7 @@ func NewAuthHandler(conn *gorm.DB) *AuthHandler {
 	return &AuthHandler{authService: NewAuthService(conn)}
 }
 
-func (h *AuthHandler) SignUp(c *gin.Context) {
+func (h *AuthHandler) Register(c *gin.Context) {
 	var req AuthRequest
 
 	err := c.ShouldBind(&req)

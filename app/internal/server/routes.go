@@ -19,8 +19,10 @@ func NewRouter(
 		c.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
 
-	r.POST("/sign-up", authHandler.SignUp)
-	r.POST("/login", authHandler.Login)
+	authGroup := r.Group("/auth")
+
+	authGroup.POST("/register", authHandler.Register)
+	authGroup.POST("/login", authHandler.Login)
 
 	api := r.Group("/api", auth.AuthMiddleware(jwtManager))
 
