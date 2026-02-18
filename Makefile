@@ -13,6 +13,7 @@ build.prod:
 	@docker build --no-cache \
 	-f docker/golang/Dockerfile.prod . \
 	-t ${REGISTRY}:${BUILD_DATE}_shortify-prod
+	-t ${REGISTRY}:shortify-prod-latest
 
 # ==============
 # DATABASE MIGRATIONS

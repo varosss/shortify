@@ -1,5 +1,5 @@
 x-go-tmpl: &go-tmpl
-  image: vaross/private-projects:shortify-dev
+  image: vaross/private-projects:shortify-prod-latest
   restart: always
   platform: linux/amd64
   working_dir: /srv/app
